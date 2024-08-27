@@ -1,11 +1,15 @@
 import fastify from 'fastify'
+import cookie from '@fastify/cookie'
 import { env } from './env'
+
+import { mealsRoutes } from './routes/meals.router'
+import { usersRoutes } from './routes/users.router'
 
 const app = fastify()
 
-app.get('/hello', () => {
-  return 'Hello World!'
-})
+app.register(cookie)
+app.register(mealsRoutes, { prefix: 'meals' })
+app.register(usersRoutes, { prefix: 'users' })
 
 app
   .listen({
